@@ -1,6 +1,5 @@
-use deadpool_diesel::postgres::{Pool};
+use deadpool_diesel::postgres::Pool;
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
-
 
 pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations/");
 

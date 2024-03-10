@@ -1,7 +1,7 @@
 use crate::platform::config::config;
 use crate::platform::db::connection_manager::setup_connection_pool;
-use crate::platform::service::service_factory::setup_service;
 use crate::platform::db::migration::run_db_migrations;
+use crate::platform::service::service_factory::setup_service;
 use std::net::SocketAddr;
 
 mod domain;
