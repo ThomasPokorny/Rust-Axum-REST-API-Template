@@ -1,5 +1,5 @@
-use serde::Serialize;
 use serde::Deserialize;
+use serde::Serialize;
 use uuid::Uuid;
 
 #[derive(Serialize)]
@@ -17,6 +17,6 @@ pub struct TweetsDTO {
 
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct CreateTweetDTO {
+pub struct CreateUpdateTweetDTO {
     pub body: String,
 }
