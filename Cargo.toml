@@ -12,3 +12,10 @@ sqlx = {version = "0.6.3", features = ["runtime-tokio-rustls", "postgres", "macr
 tower-http = {version = "0.4", features=["full"]}
 serde_json = { version = "1.0.95" }
 serde = { version = "1.0.130", features = ["derive"] }
+dotenvy = "0.15"
+
+diesel = { version = "2.1", features = ["postgres", "uuid", "serde_json"] }
+diesel_migrations = "2"
+deadpool-diesel = { version = "0.4", features = ["postgres"] }
+
+uuid = { version = "1.4", features = ["fast-rng", "v4", "serde"] }

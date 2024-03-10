@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  postgres:
+    image: bitnami/postgresql:latest
+    # NOTE: volumes section can be removed if not needed
+    volumes:
+      - axum-template-db:/bitnami/postgresql
+    ports:
+      - '15432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=axum_template_db
+    restart: unless-stopped
+
+# NOTE: volumes section can be removed if not needed
+volumes:
+  axum-template-db:

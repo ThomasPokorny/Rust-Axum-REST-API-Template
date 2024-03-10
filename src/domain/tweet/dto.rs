@@ -1,9 +1,10 @@
 use serde::Serialize;
+use uuid::Uuid;
 
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct TweetDTO {
-    pub id: i64,
+    pub id: Uuid,
     pub body: String,
 }
 
