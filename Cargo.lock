@@ -161,6 +161,7 @@ dependencies = [
  "diesel",
  "diesel_migrations",
  "dotenvy",
+ "o2o",
  "serde",
  "serde_json",
  "sqlx",
@@ -954,6 +955,37 @@ checksum = "4161fcb6d602d4d2081af7c3a45852d875a03dd337a6bfdd6e06407b61342a43"
 dependencies = [
  "hermit-abi",
  "libc",
+]
+
+[[package]]
+name = "o2o"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3da907f8135589dd980feb3458c86e3066211230a88d1bc0187e079d3f703d86"
+dependencies = [
+ "o2o-impl",
+ "o2o-macros",
+]
+
+[[package]]
+name = "o2o-impl"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "01a0a140a82a1889c8b0e05c4cea401541cdf8d18343074286ad758e7c053efb"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "o2o-macros"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2aec90c89af5d82c2b90ae2f66da0ffd78c79e016c3ea09d7ad8e7c9c21e55e1"
+dependencies = [
+ "o2o-impl",
+ "syn 1.0.109",
 ]
 
 [[package]]
