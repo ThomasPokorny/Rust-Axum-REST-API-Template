@@ -1,13 +1,11 @@
 use diesel::prelude::*;
 use std::sync::Arc;
-use uuid::Uuid;
+use crate::domain::tweet::model::Tweet;
+use crate::domain::tweet::model::CreateUpdateTweet;
+use crate::domain::db::schema::tweet::dsl::*;
+use crate::domain::db::schema::tweet;
 
-// Define the Tweet struct corresponding to the tweet table
-#[derive(Debug, Queryable)]
-pub struct Tweet {
-    pub id: Uuid,
-    pub body: String,
-}
+
 
 pub struct TweetRepository {
     pool: Arc<deadpool_diesel::postgres::Pool>,
@@ -22,11 +20,22 @@ impl TweetRepository {
         let conn = self.pool.get().await.unwrap();
 
         conn.interact(move |conn| {
-            use crate::domain::db::schema::tweet::dsl::*;
-
             tweet.load::<Tweet>(conn)
         })
         .await
         .unwrap()
+    }
+
+    pub async fn save(&self, create_tweet: CreateUpdateTweet) -> Result<Tweet, diesel::result::Error> {
+        let conn = self.pool.get().await.unwrap();
+        conn
+            .interact(|conn| {
+                diesel::insert_into(tweet::table)
+                    .values(create_tweet)
+                    .returning(Tweet::as_returning())
+                    .get_result(conn)
+            })
+            .await
+            .unwrap()
     }
 }

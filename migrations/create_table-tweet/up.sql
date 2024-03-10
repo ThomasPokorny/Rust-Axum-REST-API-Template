@@ -1,6 +1,8 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE public.TWEET
 (
-    ID      UUID        NOT NULL PRIMARY KEY,
+    ID      UUID        PRIMARY KEY DEFAULT uuid_generate_v4(),
     BODY    TEXT        NOT NULL
 );
 
