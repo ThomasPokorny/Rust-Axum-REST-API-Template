@@ -1,4 +1,4 @@
-# Rust Axum Hexagonal REST API Template
+# Rust Axum REST API Template
 
 This repository serves as a template for building RESTful APIs using Rust, Axum, and the hexagonal architecture pattern.
 
