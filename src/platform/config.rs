@@ -1,6 +1,8 @@
+use std::env;
+use std::net::SocketAddr;
+
 // Import necessary modules
 use dotenvy::dotenv;
-use std::env;
 use tokio::sync::OnceCell;
 
 // Define a struct to represent server configuration
@@ -74,4 +76,9 @@ async fn init_config() -> Config {
 pub async fn config() -> &'static Config {
     // Get the configuration from the OnceCell or initialize it if it hasn't been set yet
     CONFIG.get_or_init(init_config).await
+}
+
+pub fn socket_address(config: &Config) -> SocketAddr {
+    let address = format!("{}:{}", &config.server_host(), &config.server_port());
+    address.parse().unwrap()
 }
