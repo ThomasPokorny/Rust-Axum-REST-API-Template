@@ -20,44 +20,37 @@ This repository serves as a template for building RESTful APIs using Rust, Axum,
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/yourusername/axum-hexagonal-template.git
+    git clone https://github.com/ThomasPokorny/Rust-Axum-REST-API-Template.git
     ```
+2. Update the Docker Compose file (`docker-compose.yml`) as needed to configure the PostgreSQL image.
 
-2. Navigate into the project directory:
+3. Update the environment variables in the `.env` file to configure connection details and server settings.
 
-    ```bash
-    cd axum-hexagonal-template
-    ```
-
-3. Update the Docker Compose file (`docker-compose.yml`) as needed to configure the PostgreSQL image.
-
-4. Update the environment variables in the `.env` file to configure connection details and server settings.
-
-5. Start the PostgreSQL container:
+4. Start the PostgreSQL container:
 
     ```bash
     docker-compose up
     ```
 
-6. Manually execute migrations to set up the database schema and populate default values for the "tweet" table:
+5. Manually execute migrations to set up the database schema and populate default values for the "tweet" table:
 
     ```bash
     diesel migration run
     ```
 
-7. Build the application:
+6. Build the application:
 
     ```bash
     cargo build
     ```
 
-8. Run the application:
+7. Run the application:
 
     ```bash
     cargo run
     ```
 
-9. Default access the API at `http://localhost:4000`.
+8. Default access the API at `http://localhost:4000`.
    To 'fetch all tweets' GE:  http://localhost:4000/api/v1/tweets
 
 ## Project Structure
