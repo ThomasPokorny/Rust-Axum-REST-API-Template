@@ -51,7 +51,7 @@ This repository serves as a template for building RESTful APIs using Rust, Axum,
     ```
 
 8. Default access the API at `http://localhost:4000`.
-   To 'fetch all tweets' GE:  http://localhost:4000/api/v1/tweets
+   > To 'fetch all tweets' GET:  http://localhost:4000/api/v1/tweets
 
 ## Project Structure
 
