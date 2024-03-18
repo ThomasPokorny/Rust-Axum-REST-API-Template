@@ -15,6 +15,7 @@ async fn main() {
     run_db_migrations(&pool).await;
 
     let app = setup_service(pool);
+    
     axum::Server::bind(&socket_address(&config))
         .serve(app.into_make_service())
         .await
