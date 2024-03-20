@@ -1,5 +1,6 @@
 use std::sync::Arc;
 
+use deadpool_diesel::InteractError;
 use diesel::prelude::*;
 use uuid::Uuid;
 
@@ -70,5 +71,18 @@ impl TweetRepository {
         })
             .await
             .unwrap()
+    }
+
+    pub async fn delete(
+        &self,
+        tweet_id: Uuid,
+    ) -> Result<QueryResult<usize>, InteractError> {
+        let conn = self.pool.get().await.unwrap();
+
+        conn.interact(move |conn| {
+            diesel::delete(tweet::table)
+                .filter(id.eq(tweet_id))
+                .execute(conn)
+        }).await
     }
 }

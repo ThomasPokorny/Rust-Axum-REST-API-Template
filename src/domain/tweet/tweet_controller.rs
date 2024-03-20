@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use axum::{http::StatusCode, Json, response::IntoResponse, Router, routing::get, routing::post};
 use axum::extract::{Extension, Path};
-use axum::routing::put;
+use axum::routing::{delete, put};
 use uuid::Uuid;
 
 use crate::domain::tweet::dto::{CreateUpdateTweetDTO, to_dto_list};
@@ -15,6 +15,7 @@ pub fn router() -> Router {
         .route("/api/v1/tweets", get(get_tweets))
         .route("/api/v1/tweets/:tweet_id", get(get_tweet))
         .route("/api/v1/tweets/:tweet_id", put(update_tweet))
+        .route("/api/v1/tweets/:tweet_id", delete(delete_tweet))
         .route("/api/v1/tweets", post(create_tweet))
 }
 
@@ -58,4 +59,15 @@ async fn update_tweet(
         StatusCode::OK,
         Json(TweetDTO::from(tweet.unwrap())),
     )
+}
+
+async fn delete_tweet(
+    Extension(tweet_service): Extension<Arc<TweetService>>,
+    Path(tweet_id): Path<Uuid>,
+) -> impl IntoResponse {
+    let status = match tweet_service.delete_tweet(tweet_id).await {
+        Ok(_) => StatusCode::OK,
+        Err(_) => StatusCode::INTERNAL_SERVER_ERROR
+    };
+    return status;
 }
