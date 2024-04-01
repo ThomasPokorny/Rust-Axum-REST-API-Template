@@ -16,7 +16,8 @@ async fn main() {
 
     let app = setup_service(pool);
 
-    let listener = tokio::net::TcpListener::bind(&socket_address(&config)).await.unwrap();
+    let listener = tokio::net::TcpListener::bind(&socket_address(&config))
+        .await
+        .unwrap();
     axum::serve(listener, app).await.unwrap();
-
 }

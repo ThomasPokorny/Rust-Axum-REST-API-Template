@@ -29,15 +29,14 @@ impl TweetRepository {
     pub async fn get_by_id(&self, tweet_id: Uuid) -> Result<Tweet, diesel::result::Error> {
         let conn = self.pool.get().await.unwrap();
 
-        conn
-            .interact(move |conn| {
-                tweet::table
-                    .filter(id.eq(tweet_id))
-                    .select(Tweet::as_select())
-                    .get_result(conn)
-            })
-            .await
-            .unwrap()
+        conn.interact(move |conn| {
+            tweet::table
+                .filter(id.eq(tweet_id))
+                .select(Tweet::as_select())
+                .get_result(conn)
+        })
+        .await
+        .unwrap()
     }
 
     pub async fn save(
@@ -51,8 +50,8 @@ impl TweetRepository {
                 .returning(Tweet::as_returning())
                 .get_result(conn)
         })
-            .await
-            .unwrap()
+        .await
+        .unwrap()
     }
 
     pub async fn update(
@@ -69,20 +68,18 @@ impl TweetRepository {
                 .returning(Tweet::as_returning())
                 .get_result(conn)
         })
-            .await
-            .unwrap()
+        .await
+        .unwrap()
     }
 
-    pub async fn delete(
-        &self,
-        tweet_id: Uuid,
-    ) -> Result<QueryResult<usize>, InteractError> {
+    pub async fn delete(&self, tweet_id: Uuid) -> Result<QueryResult<usize>, InteractError> {
         let conn = self.pool.get().await.unwrap();
 
         conn.interact(move |conn| {
             diesel::delete(tweet::table)
                 .filter(id.eq(tweet_id))
                 .execute(conn)
-        }).await
+        })
+        .await
     }
 }

@@ -1,12 +1,12 @@
 use std::sync::Arc;
 
-use axum::{http::StatusCode, Json, response::IntoResponse, Router, routing::get, routing::post};
 use axum::extract::{Extension, Path};
 use axum::routing::{delete, put};
+use axum::{http::StatusCode, response::IntoResponse, routing::get, routing::post, Json, Router};
 use uuid::Uuid;
 
-use crate::domain::tweet::dto::{CreateUpdateTweetDTO, to_dto_list};
 use crate::domain::tweet::dto::TweetDTO;
+use crate::domain::tweet::dto::{to_dto_list, CreateUpdateTweetDTO};
 use crate::domain::tweet::tweet_service::TweetService;
 use crate::domain::tweet::tweet_service::TweetServiceTrait;
 
@@ -21,10 +21,7 @@ pub fn router() -> Router {
 
 async fn get_tweets(Extension(tweet_service): Extension<Arc<TweetService>>) -> impl IntoResponse {
     let tweets = tweet_service.get_tweets().await;
-    (
-        StatusCode::OK,
-        Json(to_dto_list(tweets.unwrap())),
-    )
+    (StatusCode::OK, Json(to_dto_list(tweets.unwrap())))
 }
 
 async fn get_tweet(
@@ -32,10 +29,7 @@ async fn get_tweet(
     Path(tweet_id): Path<Uuid>,
 ) -> impl IntoResponse {
     let tweet = tweet_service.get_tweet(tweet_id).await;
-    (
-        StatusCode::OK,
-        Json(TweetDTO::from(tweet.unwrap())),
-    )
+    (StatusCode::OK, Json(TweetDTO::from(tweet.unwrap())))
 }
 
 async fn create_tweet(
@@ -43,10 +37,7 @@ async fn create_tweet(
     Json(create_tweet): Json<CreateUpdateTweetDTO>,
 ) -> impl IntoResponse {
     let tweet = tweet_service.create_tweet(create_tweet.into()).await;
-    (
-        StatusCode::OK,
-        Json(TweetDTO::from(tweet.unwrap())),
-    )
+    (StatusCode::OK, Json(TweetDTO::from(tweet.unwrap())))
 }
 
 async fn update_tweet(
@@ -54,11 +45,10 @@ async fn update_tweet(
     Path(tweet_id): Path<Uuid>,
     Json(create_tweet): Json<CreateUpdateTweetDTO>,
 ) -> impl IntoResponse {
-    let tweet = tweet_service.update_tweet(tweet_id, create_tweet.into()).await;
-    (
-        StatusCode::OK,
-        Json(TweetDTO::from(tweet.unwrap())),
-    )
+    let tweet = tweet_service
+        .update_tweet(tweet_id, create_tweet.into())
+        .await;
+    (StatusCode::OK, Json(TweetDTO::from(tweet.unwrap())))
 }
 
 async fn delete_tweet(
@@ -67,7 +57,7 @@ async fn delete_tweet(
 ) -> impl IntoResponse {
     let status = match tweet_service.delete_tweet(tweet_id).await {
         Ok(_) => StatusCode::OK,
-        Err(_) => StatusCode::INTERNAL_SERVER_ERROR
+        Err(_) => StatusCode::INTERNAL_SERVER_ERROR,
     };
     return status;
 }

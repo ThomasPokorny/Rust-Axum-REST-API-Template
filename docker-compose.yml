@@ -5,6 +5,7 @@ services:
     # NOTE: volumes section can be removed if not needed
     volumes:
       - axum-template-db:/bitnami/postgresql
+      - ./init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
     ports:
       - '15432:5432'
     environment:

@@ -129,10 +129,13 @@ dependencies = [
  "diesel",
  "diesel_migrations",
  "dotenvy",
+ "http-body-util",
+ "log",
  "o2o",
  "serde",
  "serde_json",
  "tokio",
+ "tower",
  "tower-http",
  "uuid",
 ]

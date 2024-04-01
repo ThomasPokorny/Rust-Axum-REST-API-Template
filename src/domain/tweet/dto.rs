@@ -29,7 +29,5 @@ pub struct CreateUpdateTweetDTO {
 
 pub fn to_dto_list(tweets: Vec<Tweet>) -> TweetsDTO {
     let tweets: Vec<TweetDTO> = tweets.into_iter().map(TweetDTO::from).collect();
-    TweetsDTO {
-        tweets
-    }
+    TweetsDTO { tweets }
 }
