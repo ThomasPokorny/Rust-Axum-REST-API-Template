@@ -18,4 +18,4 @@ diesel_migrations = "2"
 deadpool-diesel = { version = "0.6.0", features = ["postgres"] }
 
 uuid = { version = "1.4", features = ["fast-rng", "v4", "serde"] }
-o2o = "0.4.1"
+o2o = "0.4.2"
