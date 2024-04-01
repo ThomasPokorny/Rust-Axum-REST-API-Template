@@ -656,9 +656,9 @@ dependencies = [
 
 [[package]]
 name = "o2o"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3da907f8135589dd980feb3458c86e3066211230a88d1bc0187e079d3f703d86"
+checksum = "753833ac1ae059fa8feee36914dcc2050d96472a3e5f8485ad767255e0ebcf36"
 dependencies = [
  "o2o-impl",
  "o2o-macros",
@@ -666,9 +666,9 @@ dependencies = [
 
 [[package]]
 name = "o2o-impl"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "01a0a140a82a1889c8b0e05c4cea401541cdf8d18343074286ad758e7c053efb"
+checksum = "8db5624e4971f100d256525960fdffaa159e6baf8535f4b7363cca058564dcd9"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -677,9 +677,9 @@ dependencies = [
 
 [[package]]
 name = "o2o-macros"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2aec90c89af5d82c2b90ae2f66da0ffd78c79e016c3ea09d7ad8e7c9c21e55e1"
+checksum = "a8c8c309cc69dbb7f22b3db0b42f9eea77ab9c7a7b32fd2c5436ba3401cacbf0"
 dependencies = [
  "o2o-impl",
  "syn 1.0.109",
