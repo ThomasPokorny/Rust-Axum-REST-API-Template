@@ -1,22 +1,19 @@
 use std::sync::Arc;
 
-use axum::{http::StatusCode, Json, response::IntoResponse, Router, routing::get, routing::post};
-use axum::extract::{Extension, Path};
-use axum::routing::{delete, put};
-use uuid::Uuid;
+use axum::{http::StatusCode, Json, response::IntoResponse, Router, routing::get};
+use axum::extract::Extension;
 
-use crate::domain::tweet::dto::{CreateUpdateTweetDTO, to_dto_list};
-use crate::domain::tweet::dto::TweetDTO;
+use crate::domain::tweet::dto::to_dto_list;
 use crate::domain::tweet::tweet_service::TweetService;
 use crate::domain::tweet::tweet_service::TweetServiceTrait;
 
 pub fn router() -> Router {
     Router::new()
         .route("/api/v1/tweets", get(get_tweets))
-        .route("/api/v1/tweets/:tweet_id", get(get_tweet))
-        .route("/api/v1/tweets/:tweet_id", put(update_tweet))
-        .route("/api/v1/tweets/:tweet_id", delete(delete_tweet))
-        .route("/api/v1/tweets", post(create_tweet))
+    /*.route("/api/v1/tweets/:tweet_id", get(get_tweet))
+    .route("/api/v1/tweets/:tweet_id", put(update_tweet))
+    .route("/api/v1/tweets/:tweet_id", delete(delete_tweet))
+    .route("/api/v1/tweets", post(create_tweet))*/
 }
 
 async fn get_tweets(Extension(tweet_service): Extension<Arc<TweetService>>) -> impl IntoResponse {
@@ -27,7 +24,7 @@ async fn get_tweets(Extension(tweet_service): Extension<Arc<TweetService>>) -> i
     )
 }
 
-async fn get_tweet(
+/*async fn get_tweet(
     Extension(tweet_service): Extension<Arc<TweetService>>,
     Path(tweet_id): Path<Uuid>,
 ) -> impl IntoResponse {
@@ -70,4 +67,4 @@ async fn delete_tweet(
         Err(_) => StatusCode::INTERNAL_SERVER_ERROR
     };
     return status;
-}
+}*/

@@ -1,10 +1,10 @@
 use diesel::prelude::*;
 use serde::Deserialize;
-use uuid::Uuid;
+use sqlx::types::Uuid;
 
 use crate::domain::db::schema::tweet;
 
-#[derive(Debug, Queryable, Selectable)]
+#[derive(Debug, Queryable, Selectable, sqlx::FromRow)]
 #[diesel(table_name = tweet)]
 pub struct Tweet {
     pub id: Uuid,
