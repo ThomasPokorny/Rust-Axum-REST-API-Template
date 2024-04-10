@@ -1,5 +1,7 @@
+use std::env;
 use axum::body::Body;
 use axum::http::{Request, StatusCode};
+use axum::Router;
 use axum_template::platform::config::config;
 use axum_template::platform::db::connection_manager::setup_connection_pool;
 use axum_template::platform::db::migration::run_db_migrations;
@@ -22,15 +24,23 @@ struct Tweets {
     pub tweets: Vec<Tweet>,
 }
 
-#[tokio::test]
-async fn it_adds_two() {
+fn set_env_variable() {
+    env::set_var("DATABASE_URL", "postgres://postgres:password@localhost:15433/axum_template_db");
+}
+
+async fn setup_app() -> Router {
+    set_env_variable();
     let config = config().await;
     let pool = setup_connection_pool(&config);
 
     run_db_migrations(&pool).await;
 
-    let app = setup_service(pool);
+    setup_service(pool)
+}
 
+#[tokio::test]
+async fn it_adds_two() {
+    let app = setup_app().await;
     let response = app
         .oneshot(
             Request::builder()
@@ -44,7 +54,6 @@ async fn it_adds_two() {
     assert_eq!(response.status(), StatusCode::OK);
 
     let body = response.into_body().collect().await.unwrap().to_bytes();
-    let s: Tweets = serde_json::from_slice(&body).unwrap();
-    //let something: Tweets = serde_json::from_value(s).unwrap();
-    assert!(s.tweets.len() > 0);
+    let tweets: Tweets = serde_json::from_slice(&body).unwrap();
+    assert!(tweets.tweets.len() > 0);
 }
