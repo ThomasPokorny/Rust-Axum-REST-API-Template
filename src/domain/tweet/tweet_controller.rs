@@ -19,11 +19,29 @@ pub fn router() -> Router {
         .route("/api/v1/tweets", post(create_tweet))
 }
 
+#[utoipa::path(
+    get,
+    path = "/api/v1/tweets",
+    responses(
+        (status = 200, body = TweetsDTO)
+    )
+)
+]
 async fn get_tweets(Extension(tweet_service): Extension<Arc<TweetService>>) -> impl IntoResponse {
     let tweets = tweet_service.get_tweets().await;
     (StatusCode::OK, Json(to_dto_list(tweets.unwrap())))
 }
 
+#[utoipa::path(
+    get,
+    path = "/api/v1/tweets/{id}",
+    responses(
+    (status = 200, body = TweetDTO)
+    ),
+    params(
+    ("id", Path, )
+    )
+)]
 async fn get_tweet(
     Extension(tweet_service): Extension<Arc<TweetService>>,
     Path(tweet_id): Path<Uuid>,
@@ -32,14 +50,38 @@ async fn get_tweet(
     (StatusCode::OK, Json(TweetDTO::from(tweet.unwrap())))
 }
 
+
+#[utoipa::path(
+post,
+path = "/api/v1/tweets",
+request_body = CreateUpdateTweetDTO,
+responses(
+(status = 201, body = TweetDTO)
+),
+params(
+("id" , Path, )
+)
+)]
 async fn create_tweet(
     Extension(tweet_service): Extension<Arc<TweetService>>,
     Json(create_tweet): Json<CreateUpdateTweetDTO>,
 ) -> impl IntoResponse {
     let tweet = tweet_service.create_tweet(create_tweet.into()).await;
-    (StatusCode::OK, Json(TweetDTO::from(tweet.unwrap())))
+    (StatusCode::CREATED, Json(TweetDTO::from(tweet.unwrap())))
 }
 
+
+#[utoipa::path(
+post,
+path = "/api/v1/tweets",
+request_body = CreateUpdateTweetDTO,
+responses(
+(status = 200, body = TweetDTO)
+),
+params(
+("id", Path, )
+)
+)]
 async fn update_tweet(
     Extension(tweet_service): Extension<Arc<TweetService>>,
     Path(tweet_id): Path<Uuid>,
@@ -51,6 +93,17 @@ async fn update_tweet(
     (StatusCode::OK, Json(TweetDTO::from(tweet.unwrap())))
 }
 
+
+#[utoipa::path(
+delete,
+path = "/api/v1/tweets/{id}",
+responses(
+(status = 200)
+),
+params(
+("id", Path, )
+)
+)]
 async fn delete_tweet(
     Extension(tweet_service): Extension<Arc<TweetService>>,
     Path(tweet_id): Path<Uuid>,

@@ -20,6 +20,7 @@ deadpool-diesel = { version = "0.6.0", features = ["postgres"] }
 uuid = { version = "1.8", features = ["fast-rng", "v4", "serde"] }
 o2o = "0.4.2"
 log = "0.4.21"
+utoipa = "4.2.0"
 
 [dev-dependencies]
 tower = "0.4.13"
