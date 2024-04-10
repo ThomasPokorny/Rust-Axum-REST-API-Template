@@ -7,10 +7,12 @@ use serde_json::json;
 use std::env;
 
 use crate::domain::tweet::tweet_controller;
+use crate::platform::openapi::api_generator::handler_openapi_docs;
 
 pub fn get_app_router() -> Router {
     Router::new()
         .route("/", get(handler_server_status))
+        .route("/v3/api-docs", get(handler_openapi_docs))
         .merge(tweet_controller::router())
         .fallback(handler_404)
 }

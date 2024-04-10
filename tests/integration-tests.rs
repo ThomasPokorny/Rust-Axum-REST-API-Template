@@ -1,4 +1,3 @@
-use std::env;
 use axum::body::Body;
 use axum::http::{Request, StatusCode};
 use axum::Router;
@@ -7,6 +6,7 @@ use axum_template::platform::db::connection_manager::setup_connection_pool;
 use axum_template::platform::db::migration::run_db_migrations;
 use axum_template::platform::service::service_factory::setup_service;
 use serde::Deserialize;
+use std::env;
 
 use http_body_util::BodyExt;
 use tower::util::ServiceExt;
@@ -25,7 +25,10 @@ struct Tweets {
 }
 
 fn set_env_variable() {
-    env::set_var("DATABASE_URL", "postgres://postgres:password@localhost:15433/axum_template_db");
+    env::set_var(
+        "DATABASE_URL",
+        "postgres://postgres:password@localhost:15433/axum_template_db",
+    );
 }
 
 async fn setup_app() -> Router {

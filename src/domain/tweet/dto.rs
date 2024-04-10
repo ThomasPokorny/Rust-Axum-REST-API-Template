@@ -1,26 +1,28 @@
 use o2o::o2o;
 use serde::Deserialize;
 use serde::Serialize;
+use utoipa::ToSchema;
 use uuid::Uuid;
 
 use crate::domain::tweet::model::CreateUpdateTweet;
 use crate::domain::tweet::model::Tweet;
 
-#[derive(Serialize, o2o)]
+#[derive(Serialize, o2o, ToSchema)]
 #[serde(rename_all = "camelCase")]
 #[from_owned(Tweet)]
 pub struct TweetDTO {
+    #[schema(value_type = String)]
     pub id: Uuid,
     pub body: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, ToSchema)]
 #[serde(rename_all = "camelCase")]
 pub struct TweetsDTO {
     pub tweets: Vec<TweetDTO>,
 }
 
-#[derive(Deserialize, o2o)]
+#[derive(Deserialize, o2o, ToSchema)]
 #[serde(rename_all = "camelCase")]
 #[owned_into(CreateUpdateTweet)]
 pub struct CreateUpdateTweetDTO {
