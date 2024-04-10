@@ -19,8 +19,8 @@ jobs:
         image: postgres:latest
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: mypassword
-          POSTGRES_DB: password
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: axum_template_db
         ports:
           - '15433:5432'
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
