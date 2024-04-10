@@ -14,9 +14,23 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: bitnami/postgresql:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: mypassword
+          POSTGRES_DB: password
+        ports:
+          - '15433:5432'
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+
     steps:
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --verbose
     - name: Run tests
+      env:
+        DATABASE_URL: postgres://postgres:password@localhost:15433/axum_template_db
       run: cargo test --verbose
