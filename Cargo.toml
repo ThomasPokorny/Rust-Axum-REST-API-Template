@@ -10,7 +10,7 @@ tokio = {version="1.37.0", features = ["macros", "rt-multi-thread"]}
 axum = "0.7.5"
 tower-http = {version = "0.5.2", features=["full"]}
 serde_json = { version = "1.0.116" }
-serde = { version = "1.0.199", features = ["derive"] }
+serde = { version = "1.0.202", features = ["derive"] }
 dotenvy = "0.15"
 
 diesel = { version = "2.1", features = ["postgres", "uuid", "serde_json"] }
